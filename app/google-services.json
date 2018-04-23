@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1042157663936",
+    "firebase_url": "https://geochat-e5414.firebaseio.com",
+    "project_id": "geochat-e5414",
+    "storage_bucket": "geochat-e5414.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042157663936:android:6b4e952888929471",
+        "android_client_info": {
+          "package_name": "edu.fsu.cs.mobile.geochat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042157663936-9abinpfadi650g3bj4qrca0vvcfsbj2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-Hf3Z_O57sQPau06qNh1GxGNJIioB_OU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
