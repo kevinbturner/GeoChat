@@ -6,10 +6,5 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <fragment
-        android:id="@+id/mapsFrag"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:name="com.google.android.gms.maps.MapFragment"/>
 
 </android.support.constraint.ConstraintLayout>
