@@ -28,6 +28,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,7 +45,7 @@ import java.util.List;
 *   -Placing markers: Video tutorials - https://www.youtube.com/watch?v=MWowf5SkiOE, https://www.youtube.com/watch?v=s_6xxTjoLGY
 */
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -56,6 +57,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+
+    Marker palace, town, bull, pots, horse, brass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //TODO: Check this
         //Use this once a sign out option has been created
         //mAuth.signOut();
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -97,7 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
             loadAddresses();
         }
@@ -188,7 +192,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        String name = marker.getTitle();
+
+        if(name.equals("Palace Saloon")){
+            Toast.makeText(getApplicationContext(), "You clicked on palace!", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if(name.equals("Township")){
+            Toast.makeText(getApplicationContext(), "You clicked on township!", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if(name.equals("Bullwinkle's")){
+            Toast.makeText(getApplicationContext(), "You clicked on bullwinkle's!", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if(name.equals("Warhorse")){
+            Toast.makeText(getApplicationContext(), "You clicked on warhorse!", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if(name.equals("Potbelly's")){
+            Toast.makeText(getApplicationContext(), "You clicked on pots!", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if(name.equals("Brass Tap")){
+            Toast.makeText(getApplicationContext(), "You clicked on brass tap!", Toast.LENGTH_SHORT).show();
+            return true;
+        }else {
+            Toast.makeText(getApplicationContext(), "What happened here?", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
     private void loadAddresses(){
+        mMap.setOnMarkerClickListener(this);
+
         Geocoder geocoder = new Geocoder(MapsActivity.this);
         List<Address> addressList = new ArrayList<>();
 
@@ -212,10 +246,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (addressList.size() > 0) {
                     Address address = addressList.get(0);
 
-                    MarkerOptions mOptions = new MarkerOptions()
+                    palace = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
-                            .title("Palace Saloon");
-                    mMap.addMarker(mOptions);
+                            .title("Palace Saloon")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 1){
                 try {
@@ -227,10 +261,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (addressList.size() > 0) {
                     Address address = addressList.get(0);
 
-                    MarkerOptions mOptions = new MarkerOptions()
+                    pots = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
-                            .title("Potbelly's");
-                    mMap.addMarker(mOptions);
+                            .title("Potbelly's")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 2){
                 try {
@@ -242,10 +276,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (addressList.size() > 0) {
                     Address address = addressList.get(0);
 
-                    MarkerOptions mOptions = new MarkerOptions()
+                    brass = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
-                            .title("Brass Tap");
-                    mMap.addMarker(mOptions);
+                            .title("Brass Tap")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 3){
                 try {
@@ -257,10 +291,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (addressList.size() > 0) {
                     Address address = addressList.get(0);
 
-                    MarkerOptions mOptions = new MarkerOptions()
+                    horse = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
-                            .title("Warhorse");
-                    mMap.addMarker(mOptions);
+                            .title("Warhorse")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 4){
                 try {
@@ -272,10 +306,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (addressList.size() > 0) {
                     Address address = addressList.get(0);
 
-                    MarkerOptions mOptions = new MarkerOptions()
+                    town = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
-                            .title("Township");
-                    mMap.addMarker(mOptions);
+                            .title("Township")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else{
                 try {
@@ -287,10 +321,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (addressList.size() > 0) {
                     Address address = addressList.get(0);
 
-                    MarkerOptions mOptions = new MarkerOptions()
+                    bull = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
-                            .title("Bullwinkle's");
-                    mMap.addMarker(mOptions);
+                            .title("Bullwinkle's")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }
         }
