@@ -197,22 +197,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String name = marker.getTitle();
 
         if(name.equals("Palace Saloon")){
-            Toast.makeText(getApplicationContext(), "You clicked on palace!", Toast.LENGTH_SHORT).show();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15f));
+            marker.showInfoWindow();
             return true;
         }else if(name.equals("Township")){
-            Toast.makeText(getApplicationContext(), "You clicked on township!", Toast.LENGTH_SHORT).show();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15f));
+            marker.showInfoWindow();
             return true;
         }else if(name.equals("Bullwinkle's")){
-            Toast.makeText(getApplicationContext(), "You clicked on bullwinkle's!", Toast.LENGTH_SHORT).show();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15f));
+            marker.showInfoWindow();
             return true;
         }else if(name.equals("Warhorse")){
-            Toast.makeText(getApplicationContext(), "You clicked on warhorse!", Toast.LENGTH_SHORT).show();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15f));
+            marker.showInfoWindow();
             return true;
         }else if(name.equals("Potbelly's")){
-            Toast.makeText(getApplicationContext(), "You clicked on pots!", Toast.LENGTH_SHORT).show();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15f));
+            marker.showInfoWindow();
             return true;
         }else if(name.equals("Brass Tap")){
-            Toast.makeText(getApplicationContext(), "You clicked on brass tap!", Toast.LENGTH_SHORT).show();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15f));
+            marker.showInfoWindow();
             return true;
         }else {
             Toast.makeText(getApplicationContext(), "What happened here?", Toast.LENGTH_SHORT).show();
@@ -222,6 +228,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void loadAddresses(){
         mMap.setOnMarkerClickListener(this);
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapsActivity.this));
 
         Geocoder geocoder = new Geocoder(MapsActivity.this);
         List<Address> addressList = new ArrayList<>();
@@ -249,6 +256,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     palace = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Palace Saloon")
+                            .snippet("This is the Palace Saloon!")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 1){
@@ -264,6 +272,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     pots = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Potbelly's")
+                            .snippet("")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 2){
@@ -279,6 +288,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     brass = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Brass Tap")
+                            .snippet("")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 3){
@@ -294,6 +304,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     horse = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Warhorse")
+                            .snippet("")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 4){
@@ -309,6 +320,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     town = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Township")
+                            .snippet("")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else{
@@ -324,6 +336,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     bull = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Bullwinkle's")
+                            .snippet("")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }
