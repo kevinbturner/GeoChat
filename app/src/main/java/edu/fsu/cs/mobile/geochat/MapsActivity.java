@@ -3,6 +3,13 @@ package edu.fsu.cs.mobile.geochat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.support.annotation.NonNull;
@@ -10,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -18,15 +26,22 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 *   Online guides were used to help create this code, listed as follows:
 *   -Google Maps and initial setup: https://developers.google.com/maps/documentation/android-api/start
-*   -
+*   -Fetching current location: Video tutorial - https://www.youtube.com/watch?v=fPFr0So1LmI&t=375s
+*   -Placing markers: Video tutorials - https://www.youtube.com/watch?v=MWowf5SkiOE, https://www.youtube.com/watch?v=s_6xxTjoLGY
 */
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -83,6 +98,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+            loadAddresses();
         }
     }
 
@@ -168,6 +185,114 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             ActivityCompat.requestPermissions(this,
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    private void loadAddresses(){
+        Geocoder geocoder = new Geocoder(MapsActivity.this);
+        List<Address> addressList = new ArrayList<>();
+
+        String [] search = new String[6];
+        search[0] = "1303 Jackson Bluff Rd, Tallahassee, FL 32303";         //Palace Saloon
+        search[1] = "459 W College Ave, Tallahassee, FL 32301";             //Pots
+        search[2] = "699 W Gaines St #110, Tallahassee, FL 32304";          //Brass Tap
+        search[3] = "603 W Gaines St, Tallahassee, FL 32304";               //Warhorse
+        search[4] = "619 S Woodward Ave, Tallahassee, FL 32304";            //Township
+        search[5] = "620 W Tennessee St, Tallahassee, FL 32304";            //Bullwinkle's
+
+        for(int i = 0; i < 6; i++) {
+
+            if(i == 0) {
+                try {
+                    addressList = geocoder.getFromLocationName(search[0], 1);
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+
+                if (addressList.size() > 0) {
+                    Address address = addressList.get(0);
+
+                    MarkerOptions mOptions = new MarkerOptions()
+                            .position(new LatLng(address.getLatitude(), address.getLongitude()))
+                            .title("Palace Saloon");
+                    mMap.addMarker(mOptions);
+                }
+            }else if(i == 1){
+                try {
+                    addressList = geocoder.getFromLocationName(search[1], 1);
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+
+                if (addressList.size() > 0) {
+                    Address address = addressList.get(0);
+
+                    MarkerOptions mOptions = new MarkerOptions()
+                            .position(new LatLng(address.getLatitude(), address.getLongitude()))
+                            .title("Potbelly's");
+                    mMap.addMarker(mOptions);
+                }
+            }else if(i == 2){
+                try {
+                    addressList = geocoder.getFromLocationName(search[2], 1);
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+
+                if (addressList.size() > 0) {
+                    Address address = addressList.get(0);
+
+                    MarkerOptions mOptions = new MarkerOptions()
+                            .position(new LatLng(address.getLatitude(), address.getLongitude()))
+                            .title("Brass Tap");
+                    mMap.addMarker(mOptions);
+                }
+            }else if(i == 3){
+                try {
+                    addressList = geocoder.getFromLocationName(search[3], 1);
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+
+                if (addressList.size() > 0) {
+                    Address address = addressList.get(0);
+
+                    MarkerOptions mOptions = new MarkerOptions()
+                            .position(new LatLng(address.getLatitude(), address.getLongitude()))
+                            .title("Warhorse");
+                    mMap.addMarker(mOptions);
+                }
+            }else if(i == 4){
+                try {
+                    addressList = geocoder.getFromLocationName(search[4], 1);
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+
+                if (addressList.size() > 0) {
+                    Address address = addressList.get(0);
+
+                    MarkerOptions mOptions = new MarkerOptions()
+                            .position(new LatLng(address.getLatitude(), address.getLongitude()))
+                            .title("Township");
+                    mMap.addMarker(mOptions);
+                }
+            }else{
+                try {
+                    addressList = geocoder.getFromLocationName(search[5], 1);
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+
+                if (addressList.size() > 0) {
+                    Address address = addressList.get(0);
+
+                    MarkerOptions mOptions = new MarkerOptions()
+                            .position(new LatLng(address.getLatitude(), address.getLongitude()))
+                            .title("Bullwinkle's");
+                    mMap.addMarker(mOptions);
+                }
+            }
         }
     }
 }
