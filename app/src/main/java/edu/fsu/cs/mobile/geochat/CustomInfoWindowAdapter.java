@@ -8,6 +8,10 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
+/*
+*   Tutorial for setting up Custom info window found here: https://www.youtube.com/watch?v=DhYofrJPzlI
+*/
+
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private final View mWindow;
     private Context mContext;
