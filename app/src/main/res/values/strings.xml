@@ -1,10 +1,13 @@
 <resources>
-    <string name="app_name">GeoChat</string>
+    <string name="app_name">BarChat</string>
     <string name="username">Please enter your username</string>
     <string name="password">Please enter your password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">BarChat</string>
     <string name="checkIn">Check In</string>
     <string name="send">Send</string>
+    <string name="signOut">Sign Out</string>
+    <string name="finish">Exit BarChat</string>
+
 </resources>

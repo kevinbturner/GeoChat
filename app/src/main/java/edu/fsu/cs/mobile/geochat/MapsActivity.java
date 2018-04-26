@@ -3,23 +3,18 @@ package edu.fsu.cs.mobile.geochat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -48,7 +43,7 @@ import java.util.List;
 *   -Placing markers: Video tutorials - https://www.youtube.com/watch?v=MWowf5SkiOE, https://www.youtube.com/watch?v=s_6xxTjoLGY
 */
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -89,10 +84,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         search[5] = "620 W Tennessee St, Tallahassee, FL 32304";            //Bullwinkle's
 
         getLocationPermission();
-
-        //TODO: Check this
-        //Use this once a sign out option has been created
-        //mAuth.signOut();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -492,7 +483,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     pots = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Potbelly's")
-                            .snippet("")
+                            .snippet("Would you like to check in?")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 2){
@@ -508,7 +499,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     brass = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Brass Tap")
-                            .snippet("")
+                            .snippet("Would you like to check in?")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 3){
@@ -524,7 +515,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     horse = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Warhorse")
-                            .snippet("")
+                            .snippet("Would you like to check in?")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else if(i == 4){
@@ -540,7 +531,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     town = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Township")
-                            .snippet("")
+                            .snippet("Would you like to check in?")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }else{
@@ -556,11 +547,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     bull = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(address.getLatitude(), address.getLongitude()))
                             .title("Bullwinkle's")
-                            .snippet("")
+                            .snippet("Would you like to check in?")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.signOut:
+                mAuth.signOut();
+                startActivity(new Intent(MapsActivity.this, MainActivity.class));
+                break;
+        }
+        return true;
     }
 
     /*
