@@ -30,6 +30,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -118,6 +119,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.night_theme));
 
             loadAddresses();
 
@@ -181,7 +183,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                             address = addressList.get(0);
 
                                             if(distance(currentLocation.getLatitude(), currentLocation.getLongitude(), address.getLatitude(), address.getLongitude()) < 0.1){
-                                                Toast.makeText(getApplicationContext(), "You're within range!", Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(getApplicationContext(), "You're within range!", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(MapsActivity.this, ChatActivity.class));
                                             }else
                                                 Toast.makeText(getApplicationContext(), "Not in range! Try getting closer to this location!", Toast.LENGTH_SHORT).show();
 
@@ -214,7 +217,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                             address = addressList.get(0);
 
                                             if(distance(currentLocation.getLatitude(), currentLocation.getLongitude(), address.getLatitude(), address.getLongitude()) < 0.1){
-                                                Toast.makeText(getApplicationContext(), "You're within range!", Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(getApplicationContext(), "You're within range!", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(MapsActivity.this, ChatActivity.class));
                                             }else
                                                 Toast.makeText(getApplicationContext(), "Not in range! Try getting closer to this location!", Toast.LENGTH_SHORT).show();
 
@@ -247,7 +251,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                             address = addressList.get(0);
 
                                             if(distance(currentLocation.getLatitude(), currentLocation.getLongitude(), address.getLatitude(), address.getLongitude()) < 0.1){
-                                                Toast.makeText(getApplicationContext(), "You're within range!", Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(getApplicationContext(), "You're within range!", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(MapsActivity.this, ChatActivity.class));
                                             }else
                                                 Toast.makeText(getApplicationContext(), "Not in range! Try getting closer to this location!", Toast.LENGTH_SHORT).show();
 
@@ -280,7 +285,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                             address = addressList.get(0);
 
                                             if(distance(currentLocation.getLatitude(), currentLocation.getLongitude(), address.getLatitude(), address.getLongitude()) < 0.1){
-                                                Toast.makeText(getApplicationContext(), "You're within range!", Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(getApplicationContext(), "You're within range!", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(MapsActivity.this, ChatActivity.class));
                                             }else
                                                 Toast.makeText(getApplicationContext(), "Not in range! Try getting closer to this location!", Toast.LENGTH_SHORT).show();
 
@@ -313,7 +319,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                             address = addressList.get(0);
 
                                             if(distance(currentLocation.getLatitude(), currentLocation.getLongitude(), address.getLatitude(), address.getLongitude()) < 0.1){
-                                                Toast.makeText(getApplicationContext(), "You're within range!", Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(getApplicationContext(), "You're within range!", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(MapsActivity.this, ChatActivity.class));
                                             }else
                                                 Toast.makeText(getApplicationContext(), "Not in range! Try getting closer to this location!", Toast.LENGTH_SHORT).show();
 
